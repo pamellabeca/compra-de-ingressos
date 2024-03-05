@@ -1,61 +1,56 @@
 let quantidadeTotalDoTipo = 0;
-let quantidadeDoIngresso;
 
 function comprar(){
     let tipoDoIngresso = document.getElementById('tipo-ingresso').value;
-    quantidadeDoIngresso = document.getElementById('qtd').value;
-
-    ingressosDisponiveis(tipoDoIngresso);
+    let quantidadeDoIngresso = parseInt(document.getElementById('qtd').value);
 
     if (tipoDoIngresso == 'pista'){
-        comprarPista(quantidadeDoIngresso);
+        comprarPista(quantidadeDoIngresso, tipoDoIngresso);
     } else if (tipoDoIngresso == 'superior'){
-        comprarSuperior(quantidadeDoIngresso);
+        comprarSuperior(quantidadeDoIngresso, tipoDoIngresso);
     } else if (tipoDoIngresso == 'inferior'){
-        comprarInferior(quantidadeDoIngresso);
+        comprarInferior(quantidadeDoIngresso, tipoDoIngresso);
     }
+
+    limparCampo();
 }
 
-function ingressosDisponiveis(tipoDoIngresso){
-    let ingressosDisponiveis = parseInt(document.getElementById(`qtd-${tipoDoIngresso}`).textContent);
-
-    if(ingressosDisponiveis < quantidadeDoIngresso){
-        alert(`Sinto muito! Não há disponibilidade dessa quantidade de ingressos do tipo '${tipoDoIngresso}' no momento`)
-    }
+function limparCampo(){
+    document.getElementById('qtd').value = '';
 }
 
-function comprarPista(quantidadeDoIngresso){
+function comprarPista(quantidadeDoIngresso, tipoDoIngresso){
     let quantidadeDoIngressoPista = parseInt(document.getElementById('qtd-pista').textContent);
 
-    while (quantidadeDoIngressoPista > 0){
-        quantidadeTotalDoTipo = quantidadeDoIngressoPista - quantidadeDoIngresso;
-        quantidadeDoIngressoPista = quantidadeTotalDoTipo;  
-        break;
+    if (quantidadeDoIngresso > quantidadeDoIngressoPista){
+        alert(`Sinto muito! Não há disponibilidade dessa quantidade de ingressos do tipo '${tipoDoIngresso}' no momento`)
+    } else{
+        quantidadeDoIngressoPista = quantidadeDoIngressoPista - quantidadeDoIngresso;
+        document.getElementById('qtd-pista').innerHTML = quantidadeDoIngressoPista;
+        alert('Compra realizada com sucesso!')
     }
-
-    document.getElementById('qtd-pista').innerHTML = quantidadeDoIngressoPista;
 }
 
-function comprarSuperior(quantidadeDoIngresso){
+function comprarSuperior(quantidadeDoIngresso, tipoDoIngresso){
     let quantidadeDoIngressoSuperior = parseInt(document.getElementById('qtd-superior').textContent);
 
-    while (quantidadeDoIngressoSuperior > 0){
-        quantidadeTotalDoTipo = quantidadeDoIngressoSuperior - quantidadeDoIngresso;
-        quantidadeDoIngressoSuperior = quantidadeTotalDoTipo;  
-        break;
+    if (quantidadeDoIngresso > quantidadeDoIngressoSuperior){
+        alert(`Sinto muito! Não há disponibilidade dessa quantidade de ingressos do tipo '${tipoDoIngresso}' no momento`)
+    } else{
+        quantidadeDoIngressoSuperior = quantidadeDoIngressoSuperior - quantidadeDoIngresso;
+        document.getElementById('qtd-superior').innerHTML = quantidadeDoIngressoSuperior;
+        alert('Compra realizada com sucesso!')
     }
-
-    document.getElementById('qtd-superior').innerHTML = quantidadeDoIngressoSuperior;
 }
 
-function comprarInferior(quantidadeDoIngresso){
+function comprarInferior(quantidadeDoIngresso, tipoDoIngresso){
     let quantidadeDoIngressoInferior = parseInt(document.getElementById('qtd-inferior').textContent);
 
-    while (quantidadeDoIngressoInferior > 0){
-        quantidadeTotalDoTipo = quantidadeDoIngressoInferior - quantidadeDoIngresso;
-        quantidadeDoIngressoInferior = quantidadeTotalDoTipo;  
-        break;
+    if (quantidadeDoIngresso > quantidadeDoIngressoInferior){
+        alert(`Sinto muito! Não há disponibilidade dessa quantidade de ingressos do tipo '${tipoDoIngresso}' no momento`)
+    } else{
+        quantidadeDoIngressoInferior = quantidadeDoIngressoInferior - quantidadeDoIngresso; 
+        document.getElementById('qtd-inferior').innerHTML = quantidadeDoIngressoInferior;
+        alert('Compra realizada com sucesso!')
     }
-
-    document.getElementById('qtd-inferior').innerHTML = quantidadeDoIngressoInferior;
 }
